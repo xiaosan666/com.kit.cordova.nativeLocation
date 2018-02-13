@@ -1,0 +1,14 @@
+{
+  "name": "com.kit.cordova.nativeLocation",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "com.kit.cordova.nativeLocation",
+    "platforms": []
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "",
+  "license": "ISC"
+}

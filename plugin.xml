@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.kit.cordova.nativeLocation" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>nativeLocation</name>
+
+  <preference name="API_KEY"/>
+
+  <js-module name="nativeLocation" src="www/nativeLocation.js">
+    <clobbers target="cordova.plugins.nativeLocation"/>
+  </js-module>
+  <platform name="android">
+
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="nativeLocation">
+        <!--这里的value是包名加类名-->
+        <param name="android-package" value="com.kit.cordova.nativeLocation.NativeLocation"/>
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <!--用于进行网络定位-->
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+      <!--用于访问GPS定位-->
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+      <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+      <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+      <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+      <!--用于访问网络，网络定位需要上网-->
+      <uses-permission android:name="android.permission.INTERNET"/>
+      <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+      <!--用于读取手机当前的状态-->
+      <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+      <!--用于写入缓存数据到扩展存储卡-->
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+      <!--用于申请调用A-GPS模块-->
+      <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+      <!--用于申请获取蓝牙信息进行室内定位-->
+      <uses-permission android:name="android.permission.BLUETOOTH"/>
+      <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <!-- 定位需要的key -->
+      <meta-data android:name="com.amap.api.v2.apikey" android:value="$API_KEY"/>
+      <!-- 定位需要的服务 -->
+      <service android:name="com.amap.api.location.APSService"/>
+    </config-file>
+    <source-file src="src/android/NativeLocation.java" target-dir="src/com/kit/cordova/nativeLocation"/>
+    <source-file src="src/android/AMap_Location_V3.7.0_20171218.jar" target-dir="libs"/>
+  </platform>
+</plugin>
